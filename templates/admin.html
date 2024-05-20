@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if messages %}
+    <meta http-equiv="refresh" content="5">
+    {% endif %}
+    <title>Admin Panel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/create_user.css' %}">
+</head>
+<body>
+
+<div class="content " style="width: 100%; height: 100%;">
+    <h1 style="padding-left:100px; ">Admin Panel</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+                    {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                <strong>Message:</strong>{{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                    {% endfor %}
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <h2 class="navbar-brand">User Management</h2>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                
+                        <div class="collapse navbar-collapse" id="navbarContent">
+                            <form method="GET" action="{% url 'adminpanel' %}" class="form-inline my-2 my-lg-0 ml-auto" role="search">
+                                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search" value="{{ search_query }}">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                            <form action="{% url 'logoutadmin' %}" class="form-inline ml-3">
+                                <button class="btn btn-danger my-2 my-sm-0" type="submit">LOG OUT</button>
+                            </form>
+                            <a href="{% url 'createuser' %}" class="btn btn-danger ml-3 my-2 my-sm-0" role="button">CREATE USER</a>
+                        </div>
+                    </nav>
+                    <div class="container mt-4">
+                        <!-- Add your user management content here -->
+                    </div>
+                </div>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.first_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{% url 'edit' user.id %}">EDIT</a>
+                                <button class="btn btn-danger" onclick="confirmDelete({{ user.id }})">Delete</button>
+                                <form id="delete-form-{{ user.id }}" action="{% url 'delete' user.id %}" method="POST" style="display: none;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">User not found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+</body>
+</html>

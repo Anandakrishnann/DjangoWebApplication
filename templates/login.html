@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  </head>
+<body>
+  {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong>{{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+    {% endfor %}
+
+{% comment %} -----------------------------------------------------SIGN UP PAGE---------------------------------------------------------------------------- {% endcomment %}
+
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form method="post" action="{% url 'signup' %}">
+		    {% csrf_token %}
+        <h1>Create Account</h1>
+        <span>or use your email for registration</span>
+        <input id="username" name="username" type="text" placeholder="username" required/>
+        <input id="Name" name="Name" type="text" placeholder="Name" required/>
+        <input id="email" name="email" type="email" placeholder="Email" required/>
+        <input id="password" name="password" type="password" placeholder="Password" required/>
+        <input id="cpassword" name="cpassword" type="password" placeholder="Confirm Password" required/>
+        <button type="submit" >Sign Up</button>
+      </form>
+
+{% comment %} -----------------------------------------------------SIGN IN PAGE END---------------------------------------------------------------------------- {% endcomment %}
+
+    </div>
+    <div class="form-container sign-in-container">
+
+
+{% comment %} -----------------------------------------------------SIGN IN PAGE---------------------------------------------------------------------------- {% endcomment %}
+
+
+      <form method="post" action="{% url 'login' %}">
+		     {% csrf_token %} 
+        <h1>Sign in</h1>
+        <div class="social-container">
+          <h1>Trend Tribe</h1>
+        </div>
+        <span>or use your account</span>
+        <input id="username" name="username" type="text" placeholder="Username " required/>
+        <input id="password" name="password" type="password" placeholder="Password" required/>
+        <div id="password-error" class="error-message"></div>
+          <p style="color: black;">{{ error_message }}</p>  
+        <button type="submit">Sign In</button>
+      </form>
+
+  {% comment %} -----------------------------------------------------SIGN IN PAGE END---------------------------------------------------------------------------- {% endcomment %}
+
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Trend Tribe</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

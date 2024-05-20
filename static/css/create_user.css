@@ -1,0 +1,42 @@
+body {
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.form-control {
+  border-radius: 5px;
+  height: 45px;
+}
+
+button.btn-block {
+  border-radius: 5px;
+  height: 45px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 48%;
+  border-radius: 5px;
+  height: 45px;
+}
